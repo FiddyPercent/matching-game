@@ -1,4 +1,4 @@
 
-var header = $('.header');
+let header = $('#test');
 
-header.css("background-color", "red");
+$("#test").css("background-color", "red");

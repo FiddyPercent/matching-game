@@ -1,6 +1,12 @@
-.header {
+body, html {
+	margin: 0px;
+	padding: 0px;
+}
+
+.header, h1, h2{
 	background-color: blue;
 	text-align: center;
-	width: 80%;
+	width: 100%;
 	margin: 0 auto;
+	color: white;
 }
