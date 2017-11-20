@@ -3,6 +3,27 @@ body, html {
 	padding: 0px;
 }
 
+.card {
+	height: 120px;
+	width: 120px;
+	margin: 5px auto;
+	background-color: aqua;
+	padding-left:5px;
+	padding-right: 5px;
+}
+
+.gameboard {
+	width: 900px;
+	height: 550px;
+	margin: 0 auto;
+	margin-top: 10px;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	align-items: center;
+	background-color: gray;
+}
+
 .header, h1, h2{
 	background-color: blue;
 	text-align: center;
@@ -11,22 +32,7 @@ body, html {
 	color: white;
 }
 
-.gameboard {
-	width: 80%;
-	height: 800px;
-	border: solid black 5px;
+.row {
 	margin: 0 auto;
-	margin-top: 10px;
-	display: flex;
-	flex-wrap: wrap;
-	justify-content: center;
-	align-items: center;
 }
 
-.card {
-	width: 20%;
-	height: 20%;
-	margin: 0 auto;
-	background-color: aqua;
-	padding: 10px;
-}
