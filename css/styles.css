@@ -7,24 +7,28 @@ body, html {
 	height: 120px;
 	width: 120px;
 	margin: 5px auto;
-	background-color: aqua;
+	background-color: white;
 	padding-left:5px;
 	padding-right: 5px;
+	border-radius: 15px;
 }
 
 .gameboard {
 	width: 900px;
 	height: 550px;
 	margin: 0 auto;
-	margin-top: 10px;
+	margin-top: 50px;
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: center;
 	align-items: center;
-	background-color: gray;
+	background-color: black;
+	box-shadow: 10px 10px red;
+	border-radius: 25px;
 }
 
 .header, h1, h2{
+	font-family: 'Rubik', sans-serif;
 	background-color: blue;
 	text-align: center;
 	width: 100%;
