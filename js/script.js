@@ -29,7 +29,7 @@ $( document ).ready(function() {
 	   console.log(card.length);
 	   card.each(function(index) {
 		  
-		   $(this).text(picture[index]);
+		   //$(this).text(picture[index]);
 		   num++;
 		   
 	   });
@@ -40,10 +40,18 @@ $( document ).ready(function() {
    }
    
    function startGame() {
+	  card.each(function (index) {
+		 // $(this).attr('src', 'src=(images/' + picture[0] + '.jpg)');
+		  $(this).prepend('<img id="ff" src="images/mono-1.jpg" />')
+		  //$(this).css("visibility", "visible");
+		  //console.log('url(images/' + picture[0] + '.jpg)');
+		//  return true;
+	  });
+	   
 	   //TODO: load each div with a raondom picture holder info
 	   //TODO: set score to zero
    }
-   
+   startGame();
    loadCards();
    
    
@@ -51,11 +59,11 @@ $( document ).ready(function() {
 	var selected = $(this);
 	
 	if(!firstSelection){
-		alert("first blood!");
 		selected.css("background-color", "red");
+		firstSelection = true;
 	}else {
-		alert("then crips");
 		selected.css("visibility", "hidden");
+		firstSelection = false;
 		}
 	});
 	
