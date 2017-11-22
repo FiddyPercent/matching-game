@@ -2,11 +2,29 @@ $( document ).ready(function() {
    var gameBoard = $('.gameboard');
    var header = $(".header");
    var card = $(".card");
-   var picture = [1,2,3,4,5,6,7,8,1,2,3,4,5,6,7,8];
+   var picture = 
+   ["mono-1",
+   "mono-2",
+   "mono-3",
+   "mono-4",
+   "mono-5",
+   "mono-6",
+   "mono-7",
+   "mono-8",
+   "mono-1",
+   "mono-2",
+   "mono-3",
+   "mono-4",
+   "mono-5",
+   "mono-6",
+   "mono-7",
+   "mono-8"];
    var num = 0;
-   var firstSelection, SecondSelection;
-	
-	
+   let firstSelection = false;
+   let SecondSelection = false;
+   let score = 0;
+   let gameStart = false;
+   
    function loadCards() {
 	   console.log(card.length);
 	   card.each(function(index) {
@@ -17,32 +35,52 @@ $( document ).ready(function() {
 	   });
    }
    
+   function gameTimer(){
+	   //TODO: create a function that has a timer
+   }
+   
+   function startGame() {
+	   //TODO: load each div with a raondom picture holder info
+	   //TODO: set score to zero
+   }
+   
    loadCards();
+   
+   
    card.click(function() {
 	var selected = $(this);
 	
-	if(firstSelection.isEmpty()){
-		firstSelection = selected;
-	}else{
-		if(firstSelection.text() == selected.text()){
-			selected.css("visibility", "hidden");
-			firstSelection.css("visibility", "hidden");
-			
-			selected = null;
-		}else{
-			selected.css("background-color", "red");
-			firstSelection.css("background-color", "red");
-			selected = null;
+	if(!firstSelection){
+		alert("first blood!");
+		selected.css("background-color", "red");
+	}else {
+		alert("then crips");
+		selected.css("visibility", "hidden");
 		}
-	}	
+	});
 	
 	
-	 // $(this).css("visibility", "hidden");
+	
 	   
    });
    
-   var Card = {
+   function cardClick(){
+	   //check to see if gameStart is true
+		//if not
+			// start gameTimer()
+			// set gameStart == true
+			
 	   
-   }
+	   //show card image
+	   
+	   //check to see if another card has been clicked
+			//if another card has been clicked
+				//if the card matches
+					//remove both cards
+					//add points to scoreboard
+					
+				
+	   
    
-});
+   
+}
