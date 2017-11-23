@@ -18,10 +18,10 @@ body, html {
 }
 
 .gameboard {
-	width: 800px;
-	height: 800px;
+	width: 700px;
+	height: 700px;
 	margin: 0 auto;
-	margin-top: 50px;
+	margin-top: 20px;
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: center;
@@ -46,3 +46,11 @@ body, html {
 	flex-wrap: wrap;
 }
 
+.game-details {
+	width: 30%;
+	margin: 0 auto;
+	background-color: grey;
+	border-radius: 20px;
+	text-align: center;
+
+}

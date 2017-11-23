@@ -24,6 +24,9 @@ $( document ).ready(function() {
    let SecondSelection = false;
    let score = 0;
    let gameStart = false;
+   let timer = $("#timer");
+   let time = 0;
+   let start = new Date;
    
    function loadCards() {
 	   console.log(card.length);
@@ -35,9 +38,14 @@ $( document ).ready(function() {
 	   });
    }
    
-   function gameTimer(){
-	   //TODO: create a function that has a timer
-   }
+   
+   
+   
+	setInterval(function(){
+		timer.text(Math.floor((new Date - start)/ 1000) + " Seconds");
+
+	}, 1000);	
+   
    
    function startGame() {
 	  card.each(function (index) {
@@ -57,6 +65,10 @@ $( document ).ready(function() {
    
    card.click(function() {
 	var selected = $(this);
+	
+	if(!gameStart){
+		setInterval();
+	}
 	
 	if(!firstSelection){
 		selected.css("background-color", "red");
