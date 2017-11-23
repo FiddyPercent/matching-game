@@ -28,16 +28,33 @@ $( document ).ready(function() {
    let score = 0;
    let start = new Date;
    let startTimer = setInterval(function(){"Time: " + timer.text(Math.floor((new Date - start)/ 1000) )},1000);
+   let cards = [];
    
    function loadCards() {
 	   console.log(card.length);
 	   card.each(function(index) {
 		  
+		  let id = $(this).attr('id');
+		  let photo = picture[getRandomImage()]
 		   //$(this).text(picture[index]);
+		   currentCard = new Card(photo, id);
+		   cards.push(currentCard);
 		   num++;
 		   
 	   });
+	   
+	   console.log(cards.length);
    }
+   
+   
+   function getRandomImage() {
+	  min = 0;
+	  max = Math.floor(picture.length);
+	  return Math.floor(Math.random() * (max - min)) + min; 
+}
+   
+   
+   
    
    function startGame() {
 	  card.each(function (index) {
@@ -61,6 +78,24 @@ $( document ).ready(function() {
 			selected.css("background-color", "red");
 			firstSelection = true;
 			
+			let cardId = $(this).attr('id');
+			let currentDiv = $(this);
+			console.log(cards[2].picture);
+			cards.map(function (index) {
+				
+				if(this.attr('id') == cardId){
+					currentDiv.attr("src", "images/" + this.picture);
+					alert("match!");
+					
+					return true;
+				}else{
+					console.log(currentDiv.attr('id') + " " + cardId);
+				}
+				
+			});
+			
+			
+			
 			
 		}else {
 			selected.css("visibility", "hidden");
@@ -76,6 +111,16 @@ $( document ).ready(function() {
    
 	   
    });
+   
+   class Card {
+	   
+	   constructor(picture, divId){
+		   this.picture = picture;
+		   this.divId = divId;
+	   }
+	   
+   }
+   
    
    function cardClick(){
 	   //check to see if gameStart is true
