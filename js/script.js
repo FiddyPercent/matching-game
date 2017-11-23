@@ -22,11 +22,12 @@ $( document ).ready(function() {
    var num = 0;
    let firstSelection = false;
    let SecondSelection = false;
-   let score = 0;
    let gameStart = false;
    let timer = $("#timer");
    let time = 0;
+   let score = 0;
    let start = new Date;
+   let startTimer = setInterval(function(){"Time: " + timer.text(Math.floor((new Date - start)/ 1000) )},1000);
    
    function loadCards() {
 	   console.log(card.length);
@@ -37,15 +38,6 @@ $( document ).ready(function() {
 		   
 	   });
    }
-   
-   
-   
-   
-	setInterval(function(){
-		timer.text(Math.floor((new Date - start)/ 1000) + " Seconds");
-
-	}, 1000);	
-   
    
    function startGame() {
 	  card.each(function (index) {
@@ -59,28 +51,29 @@ $( document ).ready(function() {
 	   //TODO: load each div with a raondom picture holder info
 	   //TODO: set score to zero
    }
-   startGame();
-   loadCards();
-   
+  
    
    card.click(function() {
-	var selected = $(this);
+		var selected = $(this);
 	
-	if(!gameStart){
-		setInterval();
-	}
 	
-	if(!firstSelection){
-		selected.css("background-color", "red");
-		firstSelection = true;
-	}else {
-		selected.css("visibility", "hidden");
-		firstSelection = false;
-		}
+		if(!firstSelection){
+			selected.css("background-color", "red");
+			firstSelection = true;
+			
+			
+		}else {
+			selected.css("visibility", "hidden");
+			firstSelection = false;
+			clearInterval(startTimer);
+			
+			}
 	});
 	
 	
-	
+	startGame();
+    loadCards();
+   
 	   
    });
    
@@ -99,8 +92,5 @@ $( document ).ready(function() {
 					//remove both cards
 					//add points to scoreboard
 					
-				
-	   
-   
    
 }
