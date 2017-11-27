@@ -22,13 +22,14 @@ $( document ).ready(function() {
 	   card.each(function(index) {
 		  
 		  let id = $(this).attr('id');
-		  let photo = picture[getRandomImage()]
+		  let i = getRandomImage();
+		  let photo = picture[i]
 		   //$(this).text(picture[index]);
 		   currentCard = new Card(photo, id);
 		   cards.push(currentCard);
-		   console.log(`id = ${id} photo = ${photo} ${getRandomImage()} length = ${picture.length}`);
-		   
-		   picture.splice(index, 1);
+		   //console.log(`id = ${id} photo = ${photo} ${getRandomImage()} length = ${picture.length}`);
+		  // console.log(`loops = : ${num} subtracted item ${picture[index]}`);
+		   picture.splice(i, 1);
 		   num++;
 		   
 	   });
@@ -68,20 +69,16 @@ $( document ).ready(function() {
 		let cardId = selectedCard.attr('id');
 		let cardPicture = false;
 		
-		//console.log("url(" + "images/" + c.picture + ".jpg" + ")" );
-
-		 //selectedCard.attr("src", "images/" + this.picture);
+		 //Finds the matching class for the selected div
 			 jQuery.each(cards, function (index) {
-				
 				if(cards[index].divId == cardId){
 					cardPicture = cards[index];
-					
 				}
 				
-				console.log(`*=====================* ${cards[index].divId} matched against ${cardId} **`);
+				//console.log(`*=====================* ${cards[index].divId} matched against ${cardId} **`);
 			});
 			
-			console.log(`###### cardPicture = ${cardPicture}`);
+			//console.log(`###### cardPicture = ${cardPicture}`);
 			
 			selectedCard.css("background-image" , "url(" + "images/" + cardPicture.picture + ".jpg" + ")");
 			
@@ -107,8 +104,8 @@ $( document ).ready(function() {
 					return true;
 					
 				}else{
-					console.log(selectedCard.attr('id') + " " + cardId);
-					console.log("cardid = " +  cardId + " first Selection = " + firstSelection);
+					//console.log(selectedCard.attr('id') + " " + cardId);
+					//console.log("cardid = " +  cardId + " first Selection = " + firstSelection);
 				}
 				
 			});
@@ -166,10 +163,10 @@ $( document ).ready(function() {
    jQuery.each(pictureItems, function(index) {
 	   picture.push(pictureItems[index]);
 	   
-	   console.log(`picture push = ${pictureItems[index]}`);
+	  // console.log(`picture push = ${pictureItems[index]}`);
    });
    
-   console.log(`picture length = ${picture.length}`);
+  // console.log(`picture length = ${picture.length}`);
    }
    
    function cardClick(){
