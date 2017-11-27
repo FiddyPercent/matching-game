@@ -1,24 +1,10 @@
+var picture = [];
+
 $( document ).ready(function() {
    var gameBoard = $('.gameboard');
    var header = $(".header");
    var card = $(".card");
-   var picture = 
-   ["mono-1",
-   "mono-2",
-   "mono-3",
-   "mono-4",
-   "mono-5",
-   "mono-6",
-   "mono-7",
-   "mono-8",
-   "mono-1",
-   "mono-2",
-   "mono-3",
-   "mono-4",
-   "mono-5",
-   "mono-6",
-   "mono-7",
-   "mono-8"];
+   
    var num = 0;
    let firstSelection = false;
    let SecondSelection = false;
@@ -32,6 +18,7 @@ $( document ).ready(function() {
    
    function loadCards() {
 	   console.log(card.length);
+	    loadImages();
 	   card.each(function(index) {
 		  
 		  let id = $(this).attr('id');
@@ -39,6 +26,9 @@ $( document ).ready(function() {
 		   //$(this).text(picture[index]);
 		   currentCard = new Card(photo, id);
 		   cards.push(currentCard);
+		   console.log(`id = ${id} photo = ${photo} ${getRandomImage()} length = ${picture.length}`);
+		   
+		   picture.splice(index, 1);
 		   num++;
 		   
 	   });
@@ -57,9 +47,12 @@ $( document ).ready(function() {
    
    
    function startGame() {
+	 
 	  card.each(function (index) {
 		 // $(this).attr('src', 'src=(images/' + picture[0] + '.jpg)');
-		  $(this).prepend('<img id="ff" src="images/mono-1.jpg" />')
+		
+		  //$(this).prepend('<img id="ff" src="images/mono-1.jpg" />')
+		  $(this).css("background-image" , "url(images/mono-1.jpg)");
 		  //$(this).css("visibility", "visible");
 		  //console.log('url(images/' + picture[0] + '.jpg)');
 		//  return true;
@@ -71,36 +64,63 @@ $( document ).ready(function() {
   
    
    card.click(function() {
-		var selected = $(this);
-	
-	
-		if(!firstSelection){
-			selected.css("background-color", "red");
-			firstSelection = true;
-			
-			let cardId = $(this).attr('id');
-			let currentDiv = $(this);
-			console.log(cards[2].picture);
-			cards.map(function (index) {
+		let selectedCard = $(this);
+		let cardId = selectedCard.attr('id');
+		let cardPicture = false;
+		
+		//console.log("url(" + "images/" + c.picture + ".jpg" + ")" );
+
+		 //selectedCard.attr("src", "images/" + this.picture);
+			 jQuery.each(cards, function (index) {
 				
-				if(this.attr('id') == cardId){
-					currentDiv.attr("src", "images/" + this.picture);
-					alert("match!");
+				if(cards[index].divId == cardId){
+					cardPicture = cards[index];
 					
+				}
+				
+				console.log(`*=====================* ${cards[index].divId} matched against ${cardId} **`);
+			});
+			
+			console.log(`###### cardPicture = ${cardPicture}`);
+			
+			selectedCard.css("background-image" , "url(" + "images/" + cardPicture.picture + ".jpg" + ")");
+			
+			
+
+		if(!firstSelection){
+			//selectedCard.css("background-color", "red");
+			//console.log("card id = " + cardId);
+			//console.log(cards[2].picture);
+			
+			jQuery.each(cards, function (index) {
+				console.log(index + "*******************");
+				
+				var c = cards[index];
+				
+				
+				
+				if(cardId == firstSelection){
+					//selectedCard.style.backgroundImage="url(" + "images/" + this.picture + ".jpg" + ")";
+					console.log("url(" + "images/" + this.picture + ".jpg" + ")" ,  'background: #222; color: #bada55');
+					//selectedCard.attr("src", "images/" + this.picture);
+					alert("match!");
 					return true;
+					
 				}else{
-					console.log(currentDiv.attr('id') + " " + cardId);
+					console.log(selectedCard.attr('id') + " " + cardId);
+					console.log("cardid = " +  cardId + " first Selection = " + firstSelection);
 				}
 				
 			});
-			
+			console.log("##################################")
 			
 			
 			
 		}else {
 			selected.css("visibility", "hidden");
-			firstSelection = false;
+			firstSelection = cardId;
 			clearInterval(startTimer);
+			alert("first selection is true");
 			
 			}
 	});
@@ -121,6 +141,36 @@ $( document ).ready(function() {
 	   
    }
    
+   
+   function loadImages(){
+	   console.log("!!!!!!!!!!!!!!!!!!!" + "Image Loaded");
+	var pictureItems = 
+   ["mono-1",
+   "mono-2",
+   "mono-3",
+   "mono-4",
+   "mono-5",
+   "mono-6",
+   "mono-7",
+   "mono-8",
+   "mono-1",
+   "mono-2",
+   "mono-3",
+   "mono-4",
+   "mono-5",
+   "mono-6",
+   "mono-7",
+   "mono-8"];
+   
+   
+   jQuery.each(pictureItems, function(index) {
+	   picture.push(pictureItems[index]);
+	   
+	   console.log(`picture push = ${pictureItems[index]}`);
+   });
+   
+   console.log(`picture length = ${picture.length}`);
+   }
    
    function cardClick(){
 	   //check to see if gameStart is true
