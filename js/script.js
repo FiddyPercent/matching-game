@@ -53,7 +53,7 @@ $( document ).ready(function() {
 		 // $(this).attr('src', 'src=(images/' + picture[0] + '.jpg)');
 		
 		  //$(this).prepend('<img id="ff" src="images/mono-1.jpg" />')
-		  $(this).css("background-image" , "url(images/mono-1.jpg)");
+		  $(this).css("background-image" , "url(images/mono-hide.jpg)");
 		  //$(this).css("visibility", "visible");
 		  //console.log('url(images/' + picture[0] + '.jpg)');
 		//  return true;
