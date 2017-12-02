@@ -63,16 +63,21 @@ $( document ).ready(function() {
      function setScore(points){
 	   score.css("background-color", "yellow");
 	   console.log(`score text = ${score.text()}`);
-	 var currentScore = score.text().replace("Score: ", "" );
-	 score.text(`Score: ${Number(currentScore) + points}`);
+	 
+	 score.text(`Score: ${Number(getScore()) + points}`);
 	   
+   }
+   
+   function getScore(){
+	   var currentScore = score.text().replace("Score: ", "" );
+	   return currentScore;
    }
    
    function startTime(){
 	  // startTimer = setInterval(function(){ ) )},1000);
 	   //console.log("start!");
 	   timer.text("Time: " +Math.floor((new Date - start)/ 1000));
-	   setScore(-1);
+	   getScore() <= 0 ? setScore(0) : setScore(-1);
 	   if(!isGameFinished()){
 	   setTimeout(startTime, 1000);
 	   
@@ -108,7 +113,11 @@ $( document ).ready(function() {
 						 $("#" + firstSelection).css("visibility", "hidden");		
 						 firstSelection = false;
 						 if(isGameFinished() == true){
-								alert("You Win!");
+								
+						 var finalScore = Math.round( Math.floor((getScore() / 2 ) /100) );
+								alert(`You win! your score is ${finalScore}`);
+								
+								
 								gameStart = false;
 							}
 							
