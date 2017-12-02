@@ -12,7 +12,7 @@ $( document ).ready(function() {
    let time = 0;
    let score = 0;
    let start = new Date;
-   let startTimer = setInterval(function(){"Time: " + timer.text(Math.floor((new Date - start)/ 1000) )},1000);
+   let startTimer = false;
    let cards = [];
    
    function loadCards() {
@@ -41,19 +41,10 @@ $( document ).ready(function() {
    
    
    function startGame() {
-	 
 	  card.each(function (index) {
-		 // $(this).attr('src', 'src=(images/' + picture[0] + '.jpg)');
-		
-		  //$(this).prepend('<img id="ff" src="images/mono-1.jpg" />')
 		  $(this).css("background-image" , "url(images/mono-hide.jpg)");
-		  //$(this).css("visibility", "visible");
-		  //console.log('url(images/' + picture[0] + '.jpg)');
-		//  return true;
 	  });
-	   
-	   //TODO: load each div with a raondom picture holder info
-	   //TODO: set score to zero
+
    }
   
       function getPictureId(elementId){
@@ -71,10 +62,18 @@ $( document ).ready(function() {
 	   return match;
    } 
    
+   
+   function startTime(){
+	   startTimer = setInterval(function(){ timer.text("Time: " +Math.floor((new Date - start)/ 1000) )},1000);
+	   console.log("start!");
+	   
+   }
+   
    card.click(function() {
 		let selectedCard = $(this);
 		let cardId = selectedCard.attr('id');
 		let divCardClass = false;
+		
 		
 		//console.log(`cardID = ${cardId}\nfirstSelection = ${firstSelection};`);
 		
@@ -111,6 +110,14 @@ $( document ).ready(function() {
 						 $("#" + firstSelection).css("visibility", "hidden");		
 						 
 						 firstSelection = false;
+						 
+						 if(isGameFinished() == true){
+								alert("You Win!");
+								
+								clearInterval(startTimer);
+		
+							}
+							
 						}, 1000);
 				
 					
@@ -137,17 +144,20 @@ $( document ).ready(function() {
 			
 			//selected.css("visibility", "hidden");
 			firstSelection = cardId;
-			clearInterval(startTimer);
+			
 			//console.log(firstSelection + " First Run ");
 			
 			
 			}
+			
+			
 			
 			//console.log("####");
 	});
 	
 	
 	startGame();
+	startTime();
     loadCards();
    
 	   
@@ -161,6 +171,28 @@ $( document ).ready(function() {
 	   }
 	   
    }
+   
+   
+   function isGameFinished(){
+	   var gameOver = true;
+	   
+	  var allCards =  $(".card");
+
+		allCards.each( function(index) {
+			
+			if($(this).css("visibility") == "visible"){
+				gameOver = false;
+			}
+			
+		});
+		
+		
+		
+		
+		return gameOver;
+	   
+   }
+   
    
    function hideCard(cardId, firstSelection){
 	   
