@@ -16,7 +16,7 @@ $( document ).ready(function() {
    let cards = [];
    
    function loadCards() {
-	   console.log(card.length);
+	   //console.log(card.length);
 	    loadImages();
 	   card.each(function(index) {
 		  let id = $(this).attr('id');
@@ -27,7 +27,7 @@ $( document ).ready(function() {
 		   picture.splice(i, 1);
 		   num++;
 	   });
-	   console.log(cards.length);
+	  // console.log(cards.length);
    }
    
    
@@ -56,13 +56,27 @@ $( document ).ready(function() {
 	   //TODO: set score to zero
    }
   
+      function getPictureId(elementId){
+	   var match = undefined;
+	   
+	   jQuery.each(cards, function (index) {
+				
+				if(cards[index].divId == elementId){
+				 match = cards[index].picture;
+				 
+				 console.log(match);
+				}
+			});
+	   
+	   return match;
+   } 
    
    card.click(function() {
 		let selectedCard = $(this);
 		let cardId = selectedCard.attr('id');
 		let divCardClass = false;
 		
-		console.log(`cardID = ${cardId}\nfirstSelection = ${firstSelection};`);
+		//console.log(`cardID = ${cardId}\nfirstSelection = ${firstSelection};`);
 		
 		
 		 //Finds the matching class for the selected div
@@ -78,44 +92,43 @@ $( document ).ready(function() {
 		//If this the second picked card
 		if(firstSelection){
 
-			console.log(firstSelection + " Second Run ");
-			console.log(`cardID = ${cardId} == firstSelection = ${firstSelection}`);
+			//console.log(firstSelection + " Second Run ");
+			//console.log(`cardID = ${cardId} == firstSelection = ${firstSelection}`);
 			//jQuery.each(cards, function (index) {
 				
 				
-				if(cardId == firstSelection){
+				console.log(`cardId ${getPictureId(cardId)}\n firstSelection ${getPictureId(firstSelection)}`);
+				if(getPictureId(cardId) == getPictureId(firstSelection)){
 					//selectedCard.style.backgroundImage="url(" + "images/" + this.picture + ".jpg" + ")";
 					console.log("url(" + "images/" + this.picture + ".jpg" + ")" ,  'background: #222; color: #bada55');
 					//selectedCard.attr("src", "images/" + this.picture);
-					alert("match!");
+					//alert("match!");
 					
-					$(divCardClass.divId).css("visibility", "hidden");
+					//$(divCardClass.divId).css("visibility", "hidden");
+					setTimeout(function() {
+						  
+						 $(`#${cardId}`).css("visibility", "hidden");
+						 $("#" + firstSelection).css("visibility", "hidden");		
+						 
+						 firstSelection = false;
+						}, 1000);
+				
+					
+					
 					
 					return false;
 					
 				}else{
 					 //setTimeout(hideCard(cardId, firstSelection), 2000);
-					 console.log("This program finds a match")
 					 setTimeout(function() {
-						 
-						 console.log(`The first clicked ${cardId} \n The second card is ${firstSelection}`);
+						  
 						 $(`#${cardId}`).css("background-image" , "url(images/mono-hide.jpg)");
-						 $("#" + firstSelection).css("background-image" , "url(images/mono-hide.jpg)");
+						 $("#" + firstSelection).css("background-image" , "url(images/mono-hide.jpg)");			
 						 
-						 console.log("This program has reached the timeout phase");
 						 firstSelection = false;
-						}, 2000);
-					 
-					 
-					 
-					 
-					 
-					//console.log(selectedCard.attr('id') + " " + cardId);
-					;
-					
+						}, 1000);
 				}
-				
-			//});
+
 			
 			
 			
@@ -125,12 +138,12 @@ $( document ).ready(function() {
 			//selected.css("visibility", "hidden");
 			firstSelection = cardId;
 			clearInterval(startTimer);
-			console.log(firstSelection + " First Run ");
+			//console.log(firstSelection + " First Run ");
 			
 			
 			}
 			
-			console.log("####");
+			//console.log("####");
 	});
 	
 	
@@ -182,6 +195,10 @@ $( document ).ready(function() {
    
   // console.log(`picture length = ${picture.length}`);
    }
+   
+   
+
+   
    
    function cardClick(){
 	   //check to see if gameStart is true
