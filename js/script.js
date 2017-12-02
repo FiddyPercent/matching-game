@@ -5,7 +5,6 @@ $( document ).ready(function() {
    var header = $(".header");
    var card = $(".card");
    var num = 0;
-   
    let SecondSelection = false;
    let gameStart = false;
    let timer = $("#timer");
@@ -64,16 +63,23 @@ $( document ).ready(function() {
    
    
    function startTime(){
-	   startTimer = setInterval(function(){ timer.text("Time: " +Math.floor((new Date - start)/ 1000) )},1000);
-	   console.log("start!");
+	  // startTimer = setInterval(function(){ ) )},1000);
+	   //console.log("start!");
+	   timer.text("Time: " +Math.floor((new Date - start)/ 1000));
 	   
+	   if(!isGameFinished()){
+	   setTimeout(startTime, 1000);
+	   console.log("tick");
+	   }else{
+	   console.log("tock");
+	   }
    }
    
    card.click(function() {
 		let selectedCard = $(this);
 		let cardId = selectedCard.attr('id');
 		let divCardClass = false;
-		
+		startTime();
 		
 		//console.log(`cardID = ${cardId}\nfirstSelection = ${firstSelection};`);
 		
@@ -114,7 +120,7 @@ $( document ).ready(function() {
 						 if(isGameFinished() == true){
 								alert("You Win!");
 								
-								clearInterval(startTimer);
+								//clearInterval(startTimer);
 		
 							}
 							
@@ -157,7 +163,7 @@ $( document ).ready(function() {
 	
 	
 	startGame();
-	startTime();
+	//startTime();
     loadCards();
    
 	   
