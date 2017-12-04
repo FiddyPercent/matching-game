@@ -14,7 +14,6 @@ body, html {
 	align-items: center;
 	padding-right: 5px;
 	border-radius: 15px;
-
 }
 
 .gameboard {
@@ -47,8 +46,12 @@ body, html {
 }
 
 .game-details {
-	width: 30%;
-	margin: 0 auto;
+	position: absolute;
+	margin-top: 100px;
+	width: 15%;
+	height: 10%;
+	top: 0px;
+	left: 10px;
 	background-color: grey;
 	border-radius: 20px;
 	text-align: center;
@@ -87,12 +90,13 @@ body, html {
 	height: 50px;
 	border-radius: 25px;
 	box-shadow: 1px 1px 1px red;
-	background: black url(../images/mono-eye-small.png) no-repeat center;	
+	background: black url(../images/mono-eye-small.png) no-repeat center;
+	display: none;
 }
 
 .restart-game {
 	width: 50%;
-	max-height: 25%;
+	min-height: 25%;
 	margin: 0 auto;
 	border-radius: 25px;
 	background-color: #1a1a1a;
@@ -101,6 +105,11 @@ body, html {
 	text-align: center;
 }
 
-#play-again:hover { 
-    background-color:  #595959;
+
+
+#play-again:hover, #restart:hover{ 
+    background-color: #595959;
+	cursor: pointer;
 }
+
+

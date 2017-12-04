@@ -15,6 +15,7 @@ $( document ).ready(function() {
    let start = new Date;
    let cards = [];
    let loadPage = $("#play-again");
+   let restart = $("#restart");
    
    function loadCards() {
 	    loadImages();
@@ -90,6 +91,10 @@ $( document ).ready(function() {
 		location.reload();
 	});
 
+	restart.click(function (){
+		location.reload();
+	});
+
 
    card.click(function() {
 		let selectedCard = $(this);
@@ -122,7 +127,24 @@ $( document ).ready(function() {
 						 if(isGameFinished() == true){
 								
 						 var finalScore = Math.round( Math.floor((getScore() / 2 ) /100) );
-								//alert(`You win! your score is ${finalScore}`);
+								console.log(`You win! your score is ${finalScore}`);
+
+								if(finalScore > 4){ finalScore = 4} 
+								console.log(`final score after check ${finalScore}`);
+								$("#final-time").text(`Final Time: ${timer.text().replace("Time: ", "")}`);
+
+								switch(finalScore){
+									case 4:
+										$("#r1").css("display", "block");
+									case 3:
+										$("#r2").css("display", "block");
+									case 2:
+										$("#r3").css("display", "block");
+									default:
+										$("#r4").css("display", "block");	
+								}
+
+									
 								winScreen.css("display", "block");
 								
 								gameStart = false;
