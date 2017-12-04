@@ -17,7 +17,6 @@ $( document ).ready(function() {
    let loadPage = $("#play-again");
    let restartGame = $("#restart");
 
-
     function loadCards() {
 	    loadImages();
 	    card.each(function(index) {
@@ -27,10 +26,8 @@ $( document ).ready(function() {
 		   currentCard = new Card(photo, id);
 		   cards.push(currentCard);
 		   picture.splice(i, 1);
-		   
 	   });
    }
-   
    
     function getRandomImage() {
 	  min = 0;
@@ -63,7 +60,6 @@ $( document ).ready(function() {
 			}
 	}	
    
-   
     function setBackCardImage() {
 	  card.each(function (index) {
 		  $(this).css("background-image" , "url(images/mono-hide.jpg)");
@@ -84,10 +80,10 @@ $( document ).ready(function() {
 		updateScoreIcon();
 		score += points;
 		return score;	
-   }
+    }
 
 	function updateMovesCounter(){
-		$("#move-counter").text(`Moves: ${moveCount}`);
+		$("#move-counter").text(`Moves : ${moveCount}`);
 	}
    
     function startTime(){
@@ -105,16 +101,11 @@ $( document ).ready(function() {
 	   }
     }
    
-
-	loadPage.click(function (){
-		location.reload();
-	});
-
-	restartGame.click(function (){
+	function buttonRestart() {
+		startingTime = 0;
 		timeStop = true;
 		console.log("FinalScore before reset" + score);
 		score = 900;
-		startingTime = 0;
 		moveCount = 0;
 		hasGameStarted = false;
 		updateScoreIcon();
@@ -123,33 +114,37 @@ $( document ).ready(function() {
 		card.each(function (index) {
 			$(this).css("visibility", "visible");
 		});
+		timer.text("Time: 0");
 		setBackCardImage();
 		loadCards();
+	}
 		
-	
+
+	loadPage.click(function (){
+		buttonRestart();
+		winScreen.css("display", "none");
 		
+	});
+
+	restartGame.click(function (){
+		buttonRestart();
 	});
 
 
     card.click(function() {
-		console.log("1");
 		let selectedCard = $(this);
 		let cardId = selectedCard.attr('id');
 		let divCardClass = false;
 		++moveCount;
 		updateMovesCounter();
-		console.log("2");
 		//checks if game has already starting
 		if(!hasGameStarted){
 			timeStop = false;			
 			startTime();
 			hasGameStarted = true;
-			console.log("3");
 		}
 		 //Finds the matching class for the selected div
 			 jQuery.each(cards, function (index) {
-
-				console.log("5");
 				if(cards[index].divId == cardId){
 					divCardClass = cards[index];
 				}
@@ -168,6 +163,7 @@ $( document ).ready(function() {
 						 if(isGameFinished() == true){			
 								updateScoreIcon();
 								winScreen.css("display", "block");
+								$("#final-moves").text(`Total Moves: ${moveCount}`)
 								hasGameStarted = false;
 							}
 						}, 1000);
