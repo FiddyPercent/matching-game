@@ -1,16 +1,14 @@
 let picture = [];
-let firstSelection = false;
+let previouslySelectedCard = false;
 let moveCount = 0;
 let score = 900;
 let start = 0;
 
 $( document ).ready(function() {
    let scoreDiv = $("#score");
-   var gameBoard = $('.gameboard');
-   var header = $(".header");
-   var card = $(".card");
-   var num = 0;
-   let SecondSelection = false;
+   let gameBoard = $('.gameboard');
+   let card = $(".card");
+   let num = 0;
    let gameStart = false;
    let timer = $("#timer");
    let time = 0;
@@ -20,9 +18,9 @@ $( document ).ready(function() {
    let restart = $("#restart");
 
 
-   function loadCards() {
+    function loadCards() {
 	    loadImages();
-	   card.each(function(index) {
+	    card.each(function(index) {
 		  let id = $(this).attr('id');
 		  let i = getRandomImage();
 		  let photo = picture[i]
@@ -34,44 +32,42 @@ $( document ).ready(function() {
    }
    
    
-   function getRandomImage() {
+    function getRandomImage() {
 	  min = 0;
 	  max = Math.floor(picture.length);
 	  return Math.floor(Math.random() * (max - min)) + min; 
 	}
    
-   function updateScoreIcon() {
-		 var finalScore = Math.round( Math.floor((score / 3 )) / 100);
-								//console.log(`You win! your score is ${finalScore}`);
+    function updateScoreIcon() {
+		 var finalScore = Math.round( Math.floor((score / 3 )) / 100);				
+			if(finalScore > 3){ finalScore = 3} 
+			console.log(`final score after check ${finalScore}`);
+			$("#final-time").text(`Final Time: ${timer.text().replace("Time: ", "")}`);
 
-								if(finalScore > 3){ finalScore = 3} 
-								console.log(`final score after check ${finalScore}`);
-								$("#final-time").text(`Final Time: ${timer.text().replace("Time: ", "")}`);
-
-								switch(finalScore){
-									case 3:
-										$(".r3").css("visibility", "visable");
-										break;
-									case 2:
-										$(".r2").css("visibility", "visable");
-										$(".r1").css("visibility", "visable");		
-										$(".r3").css("visibility", "hidden");
-										break;
-									default:
-										$(".r1").css("visibility", "visable");
-										$(".r2").css("visibility", "hidden");			
-										$(".r3").css("visibility", "hidden");
-								}
+			switch(finalScore){
+				case 3:
+					$(".r3").css("visibility", "visable");
+					break;
+				case 2:
+					$(".r2").css("visibility", "visable");
+					$(".r1").css("visibility", "visable");		
+					$(".r3").css("visibility", "hidden");
+					break;
+				default:
+					$(".r1").css("visibility", "visable");
+					$(".r2").css("visibility", "hidden");			
+					$(".r3").css("visibility", "hidden");
+			}
 	}	
    
    
-   function startGame() {
+    function startGame() {
 	  card.each(function (index) {
 		  $(this).css("background-image" , "url(images/mono-hide.jpg)");
 	  });
-   }
+    }
   
-      function getPictureId(elementId){
+	function getPictureId(elementId){
 	   var match = undefined;
 	   jQuery.each(cards, function (index) {
 				if(cards[index].divId == elementId){
@@ -80,9 +76,9 @@ $( document ).ready(function() {
 				}
 			});
 	   return match;
-   } 
+    } 
    
-     function setScore(points){
+    function setScore(points){
 		updateScoreIcon();
 		score += points;
 		return score;	
@@ -92,22 +88,18 @@ $( document ).ready(function() {
 		$("#move-counter").text(`Moves: ${moveCount}`);
 	}
    
-   function startTime(){
+    function startTime(){
 	   if (!start){
 			start = Date.now();
 		}
-	  // startTimer = setInterval(function(){ ) )},1000);
-	   console.log("starting time");
 	   timer.text("Time: " +Math.floor((Date.now() - start)/ 1000));
 	   score <= 0 ? setScore(0) : setScore(-1);
-	   if(!isGameFinished()){
-	   console.log("tick");
-	   setTimeout(startTime, 1000);
-	   
+		if(!isGameFinished()){
+		   setTimeout(startTime, 1000);
 	   }else{
-			start = 0;
-		}
-   }
+		   start = 0;
+	   }
+    }
    
 
 	loadPage.click(function (){
@@ -119,13 +111,14 @@ $( document ).ready(function() {
 	});
 
 
-   card.click(function() {
+    card.click(function() {
 		let selectedCard = $(this);
 		let cardId = selectedCard.attr('id');
 		let divCardClass = false;
 		++moveCount;
 		updateMovesCounter();
-		console.log(`Move Count = ${moveCount}`);
+		
+		//checks if game has already started
 		if(!gameStart){
 			startTime();
 			gameStart = true;
@@ -138,82 +131,83 @@ $( document ).ready(function() {
 			});
 		//Shows the Image of the Selected Div
 			selectedCard.css("background-image" , "url(" + "images/" + divCardClass.picture + ".jpg" + ")");
-		//If this the second picked card
-		if(firstSelection){
-	
-				if(getPictureId(cardId) == getPictureId(firstSelection)){
-					
+		//Flow for the second picked card
+		if(previouslySelectedCard){
+				//Flow for Matching Cards
+				if(getPictureId(cardId) == getPictureId(previouslySelectedCard)){
+					//Creates a delay to show card before hiding them
 					setTimeout(function() {  
 						 $(`#${cardId}`).css("visibility", "hidden");
-						 $("#" + firstSelection).css("visibility", "hidden");		
-						 firstSelection = false;
+						 $("#" + previouslySelectedCard).css("visibility", "hidden");		
+						 previouslySelectedCard = false;
 						 if(isGameFinished() == true){			
 								updateScoreIcon();
 								winScreen.css("display", "block");
 								gameStart = false;
 							}
-							
 						}, 1000);
 					return false;
 				}else{
-					 //setTimeout(hideCard(cardId, firstSelection), 2000);
+					 //Failed Match Ends in a point Pentalty and Re-hides card
 					 setScore(-25);
 					 setTimeout(function() {
 						 $(`#${cardId}`).css("background-image" , "url(images/mono-hide.jpg)");
-						 $("#" + firstSelection).css("background-image" , "url(images/mono-hide.jpg)");			
-						 
-						 firstSelection = false;
+						 $("#" + previouslySelectedCard).css("background-image" , "url(images/mono-hide.jpg)");
+						 previouslySelectedCard = false;
 						}, 1000);
 				}
-
-			}else {
-				firstSelection = cardId;
-				}
-		});
+		}else {
+				previouslySelectedCard = cardId;
+		}
+	});
+	
+	//Starts The Setup for the Game On Load Complete
 	startGame();
     loadCards();
 	
    });
    
-   class Card {
+	//A class for each Card Div that stores picture and div ID data
+    class Card {
 	   constructor(picture, divId){
 		   this.picture = picture;
 		   this.divId = divId;
 	   }
-   }
+    }
    
-   
-   function isGameFinished(){
+   //Checks if game has completed
+    function isGameFinished(){
 	   var gameOver = true;
 	   var allCards =  $(".card");
-
+		
 		allCards.each( function(index) {
 			if($(this).css("visibility") == "visible"){
 				gameOver = false;
 			}
 		});
 		return gameOver;
-   }
-
-   function loadImages(){
-	var pictureItems = 
-   ["mono-1",
-   "mono-2",
-   "mono-3",
-   "mono-4",
-   "mono-5",
-   "mono-6",
-   "mono-7",
-   "mono-8",
-   "mono-1",
-   "mono-2",
-   "mono-3",
-   "mono-4",
-   "mono-5",
-   "mono-6",
-   "mono-7",
-   "mono-8"];
-   jQuery.each(pictureItems, function(index) {
+    }
+	
+	//Loads Images to be used as Card Matching Images
+    function loadImages(){
+		var pictureItems = 
+		["mono-1",
+		"mono-2",
+		"mono-3",
+		"mono-4",
+		"mono-5",
+		"mono-6",
+		"mono-7",
+		"mono-8",
+		"mono-1",
+		"mono-2",
+		"mono-3",
+		"mono-4",
+		"mono-5",
+		"mono-6",
+		"mono-7",
+		"mono-8"];
+	   jQuery.each(pictureItems, function(index) {
 	   picture.push(pictureItems[index]);
    });
   }
