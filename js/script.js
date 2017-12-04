@@ -11,9 +11,10 @@ $( document ).ready(function() {
    let gameStart = false;
    let timer = $("#timer");
    let time = 0;
-  
+   let winScreen = $(".modal");
    let start = new Date;
    let cards = [];
+
    
    function loadCards() {
 	    loadImages();
@@ -115,8 +116,8 @@ $( document ).ready(function() {
 						 if(isGameFinished() == true){
 								
 						 var finalScore = Math.round( Math.floor((getScore() / 2 ) /100) );
-								alert(`You win! your score is ${finalScore}`);
-								
+								//alert(`You win! your score is ${finalScore}`);
+								winScreen.css("display", "block");
 								
 								gameStart = false;
 							}
