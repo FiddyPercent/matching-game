@@ -3,12 +3,13 @@ let previouslySelectedCard = false;
 let moveCount = 0;
 let score = 900;
 let startingTime = 0;
+let timeStop = false;
 
 $( document ).ready(function() {
    let scoreDiv = $("#score");
    let gameBoard = $('.gameboard');
    let card = $(".card");
-   let gamestartingTime = false;
+   let hasGameStarted = false;
    let timer = $("#timer");
    let time = 0;
    let winScreen = $(".win-Screen");
@@ -39,28 +40,31 @@ $( document ).ready(function() {
    
     function updateScoreIcon() {
 		 var finalScore = Math.round( Math.floor((score / 3 )) / 100);				
+			console.log(`finalScore = ${finalScore}`);
 			if(finalScore > 3){ finalScore = 3} 
-			console.log(`final score after check ${finalScore}`);
+			
 			$("#final-time").text(`Final Time: ${timer.text().replace("Time: ", "")}`);
 
 			switch(finalScore){
 				case 3:
-					$(".r3").css("visibility", "visable");
+					$(".r3").css("visibility", "visible");
+					$(".r2").css("visibility", "visible");
+					$(".r1").css("visibility", "visible");
 					break;
 				case 2:
-					$(".r2").css("visibility", "visable");
-					$(".r1").css("visibility", "visable");		
+					$(".r2").css("visibility", "visible");
+					$(".r1").css("visibility", "visible");		
 					$(".r3").css("visibility", "hidden");
 					break;
 				default:
-					$(".r1").css("visibility", "visable");
+					$(".r1").css("visibility", "visible");
 					$(".r2").css("visibility", "hidden");			
 					$(".r3").css("visibility", "hidden");
 			}
 	}	
    
    
-    function startingTimeGame() {
+    function setBackCardImage() {
 	  card.each(function (index) {
 		  $(this).css("background-image" , "url(images/mono-hide.jpg)");
 	  });
@@ -71,7 +75,6 @@ $( document ).ready(function() {
 	   jQuery.each(cards, function (index) {
 				if(cards[index].divId == elementId){
 				 match = cards[index].picture;
-				 console.log(match);
 				}
 			});
 	   return match;
@@ -87,16 +90,18 @@ $( document ).ready(function() {
 		$("#move-counter").text(`Moves: ${moveCount}`);
 	}
    
-    function startingTimeTime(){
+    function startTime(){
 	   if (!startingTime){
 			startingTime = Date.now();
 		}
 	   timer.text("Time: " +Math.floor((Date.now() - startingTime)/ 1000));
-	   score <= 0 ? setScore(0) : setScore(-1);
-		if(!isGameFinished()){
-		   setTimeout(startingTimeTime, 1000);
+		//lowers score each second
+		score <= 0 ? setScore(0) : setScore(-1);
+		if(!isGameFinished() && !timeStop){
+		   setTimeout(startTime, 1000);
 	   }else{
 		   startingTime = 0;
+			
 	   }
     }
    
@@ -106,24 +111,45 @@ $( document ).ready(function() {
 	});
 
 	restartGame.click(function (){
-		location.reload();
+		timeStop = true;
+		console.log("FinalScore before reset" + score);
+		score = 900;
+		startingTime = 0;
+		moveCount = 0;
+		hasGameStarted = false;
+		updateScoreIcon();
+		updateMovesCounter();
+		cards = [];
+		card.each(function (index) {
+			$(this).css("visibility", "visible");
+		});
+		setBackCardImage();
+		loadCards();
+		
+	
+		
 	});
 
 
     card.click(function() {
+		console.log("1");
 		let selectedCard = $(this);
 		let cardId = selectedCard.attr('id');
 		let divCardClass = false;
 		++moveCount;
 		updateMovesCounter();
-		
-		//checks if game has already startingTimeed
-		if(!gamestartingTime){
-			startingTimeTime();
-			gamestartingTime = true;
+		console.log("2");
+		//checks if game has already starting
+		if(!hasGameStarted){
+			timeStop = false;			
+			startTime();
+			hasGameStarted = true;
+			console.log("3");
 		}
 		 //Finds the matching class for the selected div
 			 jQuery.each(cards, function (index) {
+
+				console.log("5");
 				if(cards[index].divId == cardId){
 					divCardClass = cards[index];
 				}
@@ -142,13 +168,14 @@ $( document ).ready(function() {
 						 if(isGameFinished() == true){			
 								updateScoreIcon();
 								winScreen.css("display", "block");
-								gamestartingTime = false;
+								hasGameStarted = false;
 							}
 						}, 1000);
 					return false;
 				}else{
 					 //Failed Match Ends in a point Pentalty and Re-hides card
 					 setScore(-25);
+						console.log("fail 25")
 					 setTimeout(function() {
 						 $(`#${cardId}`).css("background-image" , "url(images/mono-hide.jpg)");
 						 $("#" + previouslySelectedCard).css("background-image" , "url(images/mono-hide.jpg)");
@@ -161,7 +188,7 @@ $( document ).ready(function() {
 	});
 	
 	//startingTimes The Setup for the Game On Load Complete
-	startingTimeGame();
+	setBackCardImage();
     loadCards();
 	
    });
