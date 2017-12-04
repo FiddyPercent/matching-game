@@ -91,7 +91,7 @@ body, html {
 }
 
 .restart-game {
-	width: 75%;
+	width: 50%;
 	max-height: 25%;
 	margin: 0 auto;
 	border-radius: 25px;
@@ -99,4 +99,8 @@ body, html {
 	color: red;
 	justify-content: center;
 	text-align: center;
+}
+
+#play-again:hover { 
+    background-color:  #595959;
 }

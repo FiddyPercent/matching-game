@@ -14,7 +14,7 @@ $( document ).ready(function() {
    let winScreen = $(".modal");
    let start = new Date;
    let cards = [];
-
+   let loadPage = $("#play-again");
    
    function loadCards() {
 	    loadImages();
@@ -85,6 +85,12 @@ $( document ).ready(function() {
 	   }
    }
    
+
+	loadPage.click(function (){
+		location.reload();
+	});
+
+
    card.click(function() {
 		let selectedCard = $(this);
 		let cardId = selectedCard.attr('id');
@@ -139,12 +145,8 @@ $( document ).ready(function() {
 				firstSelection = cardId;
 				}
 		});
-	
-
 	startGame();
     loadCards();
-   
-	   
    });
    
    class Card {
@@ -190,6 +192,7 @@ $( document ).ready(function() {
    });
   }
    
+
 
  
    
