@@ -1,8 +1,10 @@
 let picture = [];
 let firstSelection = false;
+let moveCount = 0;
+let score = 900;
 
 $( document ).ready(function() {
-   let score = $("#score");
+   let scoreDiv = $("#score");
    var gameBoard = $('.gameboard');
    var header = $(".header");
    var card = $(".card");
@@ -37,7 +39,29 @@ $( document ).ready(function() {
 	  return Math.floor(Math.random() * (max - min)) + min; 
 	}
    
-   
+   function updateScoreIcon() {
+		 var finalScore = Math.round( Math.floor((score / 3 )) / 100);
+								//console.log(`You win! your score is ${finalScore}`);
+
+								if(finalScore > 3){ finalScore = 3} 
+								console.log(`final score after check ${finalScore}`);
+								$("#final-time").text(`Final Time: ${timer.text().replace("Time: ", "")}`);
+
+								switch(finalScore){
+									case 3:
+										$(".r3").css("visibility", "visable");
+										break;
+									case 2:
+										$(".r2").css("visibility", "visable");
+										$(".r1").css("visibility", "visable");		
+										$(".r3").css("visibility", "hidden");
+										break;
+									default:
+										$(".r1").css("visibility", "visable");
+										$(".r2").css("visibility", "hidden");			
+										$(".r3").css("visibility", "hidden");
+								}
+	}	
    
    
    function startGame() {
@@ -63,23 +87,18 @@ $( document ).ready(function() {
    
    
      function setScore(points){
-	   score.css("background-color", "yellow");
-	   console.log(`score text = ${score.text()}`);
-	 
-	 score.text(`Score: ${Number(getScore()) + points}`);
-	   
+		updateScoreIcon();
+		score += points;
+		return score;	
+		
    }
    
-   function getScore(){
-	   var currentScore = score.text().replace("Score: ", "" );
-	   return currentScore;
-   }
    
    function startTime(){
 	  // startTimer = setInterval(function(){ ) )},1000);
 	   //console.log("start!");
 	   timer.text("Time: " +Math.floor((new Date - start)/ 1000));
-	   getScore() <= 0 ? setScore(0) : setScore(-1);
+	   score <= 0 ? setScore(0) : setScore(-1);
 	   if(!isGameFinished()){
 	   setTimeout(startTime, 1000);
 	   
@@ -100,7 +119,8 @@ $( document ).ready(function() {
 		let selectedCard = $(this);
 		let cardId = selectedCard.attr('id');
 		let divCardClass = false;
-		
+		++moveCount;
+		console.log(`Move Count = ${moveCount}`);
 		if(!gameStart){
 			startTime()
 			gameStart = true;
@@ -118,35 +138,13 @@ $( document ).ready(function() {
 	
 				if(getPictureId(cardId) == getPictureId(firstSelection)){
 					
-					setScore(100);
-					
 					setTimeout(function() {  
 						 $(`#${cardId}`).css("visibility", "hidden");
 						 $("#" + firstSelection).css("visibility", "hidden");		
 						 firstSelection = false;
-						 if(isGameFinished() == true){
-								
-						 var finalScore = Math.round( Math.floor((getScore() / 2 ) /100) );
-								console.log(`You win! your score is ${finalScore}`);
-
-								if(finalScore > 4){ finalScore = 4} 
-								console.log(`final score after check ${finalScore}`);
-								$("#final-time").text(`Final Time: ${timer.text().replace("Time: ", "")}`);
-
-								switch(finalScore){
-									case 4:
-										$("#r1").css("display", "block");
-									case 3:
-										$("#r2").css("display", "block");
-									case 2:
-										$("#r3").css("display", "block");
-									default:
-										$("#r4").css("display", "block");	
-								}
-
-									
+						 if(isGameFinished() == true){			
+								updateScoreIcon();
 								winScreen.css("display", "block");
-								
 								gameStart = false;
 							}
 							
@@ -154,7 +152,7 @@ $( document ).ready(function() {
 					return false;
 				}else{
 					 //setTimeout(hideCard(cardId, firstSelection), 2000);
-					 setScore(-15);
+					 setScore(-25);
 					 setTimeout(function() {
 						 $(`#${cardId}`).css("background-image" , "url(images/mono-hide.jpg)");
 						 $("#" + firstSelection).css("background-image" , "url(images/mono-hide.jpg)");			

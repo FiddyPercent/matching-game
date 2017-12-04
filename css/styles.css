@@ -20,7 +20,6 @@ body, html {
 	width: 700px;
 	height: 700px;
 	margin: 0 auto;
-	margin-top: 20px;
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: center;
@@ -46,15 +45,16 @@ body, html {
 }
 
 .game-details {
-	position: absolute;
-	margin-top: 100px;
-	width: 15%;
-	height: 10%;
-	top: 0px;
-	left: 10px;
+
+	width: 700px;
+	margin: 0 auto;
+	min-height: 25px;
 	background-color: grey;
 	border-radius: 20px;
 	text-align: center;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
 
 }
 
@@ -91,18 +91,18 @@ body, html {
 	border-radius: 25px;
 	box-shadow: 1px 1px 1px red;
 	background: black url(../images/mono-eye-small.png) no-repeat center;
-	display: none;
+	
 }
 
 .restart-game {
 	width: 50%;
-	min-height: 25%;
+	min-height: 5px;
 	margin: 0 auto;
 	border-radius: 25px;
 	background-color: #1a1a1a;
 	color: red;
 	justify-content: center;
-	text-align: center;
+	
 }
 
 
@@ -112,4 +112,26 @@ body, html {
 	cursor: pointer;
 }
 
+#timer, #restart {
+	width: 25%;
+	padding: 0;
+	text-align: center;
+}
 
+#score {
+	display: flex;
+	flex-wrap: wrap;
+	margin: 0 auto;
+	width: 50%;
+	background: black;
+}
+
+.r1 {
+	order: 1;
+}
+.r2 {
+	order: 2;
+}
+.r3 {
+	order: 3;
+}
