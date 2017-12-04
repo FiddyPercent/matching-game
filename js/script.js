@@ -2,6 +2,7 @@ let picture = [];
 let firstSelection = false;
 let moveCount = 0;
 let score = 900;
+let start = 0;
 
 $( document ).ready(function() {
    let scoreDiv = $("#score");
@@ -14,11 +15,11 @@ $( document ).ready(function() {
    let timer = $("#timer");
    let time = 0;
    let winScreen = $(".modal");
-   let start = new Date;
    let cards = [];
    let loadPage = $("#play-again");
    let restart = $("#restart");
-   
+
+
    function loadCards() {
 	    loadImages();
 	   card.each(function(index) {
@@ -92,14 +93,20 @@ $( document ).ready(function() {
 	}
    
    function startTime(){
+	   if (!start){
+			start = Date.now();
+		}
 	  // startTimer = setInterval(function(){ ) )},1000);
-	   //console.log("start!");
-	   timer.text("Time: " +Math.floor((new Date - start)/ 1000));
+	   console.log("starting time");
+	   timer.text("Time: " +Math.floor((Date.now() - start)/ 1000));
 	   score <= 0 ? setScore(0) : setScore(-1);
 	   if(!isGameFinished()){
+	   console.log("tick");
 	   setTimeout(startTime, 1000);
 	   
-	   }
+	   }else{
+			start = 0;
+		}
    }
    
 
@@ -120,7 +127,7 @@ $( document ).ready(function() {
 		updateMovesCounter();
 		console.log(`Move Count = ${moveCount}`);
 		if(!gameStart){
-			startTime()
+			startTime();
 			gameStart = true;
 		}
 		 //Finds the matching class for the selected div
@@ -165,6 +172,7 @@ $( document ).ready(function() {
 		});
 	startGame();
     loadCards();
+	
    });
    
    class Card {
