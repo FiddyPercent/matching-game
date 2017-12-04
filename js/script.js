@@ -14,7 +14,7 @@ $( document ).ready(function() {
    let winScreen = $(".win-Screen");
    let cards = [];
    let loadPage = $("#play-again");
-   let restartingTime = $("#restartingTime");
+   let restartGame = $("#restart");
 
 
     function loadCards() {
@@ -105,7 +105,7 @@ $( document ).ready(function() {
 		location.reload();
 	});
 
-	restartingTime.click(function (){
+	restartGame.click(function (){
 		location.reload();
 	});
 
