@@ -72,27 +72,24 @@ $( document ).ready(function() {
   
       function getPictureId(elementId){
 	   var match = undefined;
-	   
 	   jQuery.each(cards, function (index) {
-				
 				if(cards[index].divId == elementId){
 				 match = cards[index].picture;
-				 
 				 console.log(match);
 				}
 			});
-	   
 	   return match;
    } 
-   
    
      function setScore(points){
 		updateScoreIcon();
 		score += points;
 		return score;	
-		
    }
-   
+
+	function updateMovesCounter(){
+		$("#move-counter").text(`Moves: ${moveCount}`);
+	}
    
    function startTime(){
 	  // startTimer = setInterval(function(){ ) )},1000);
@@ -120,6 +117,7 @@ $( document ).ready(function() {
 		let cardId = selectedCard.attr('id');
 		let divCardClass = false;
 		++moveCount;
+		updateMovesCounter();
 		console.log(`Move Count = ${moveCount}`);
 		if(!gameStart){
 			startTime()

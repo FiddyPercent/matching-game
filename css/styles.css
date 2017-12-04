@@ -112,10 +112,14 @@ body, html {
 	cursor: pointer;
 }
 
-#timer, #restart {
+#timer, #move-counter {
 	width: 25%;
 	padding: 0;
 	text-align: center;
+}
+
+#restart {
+	width: 100%;
 }
 
 #score {
