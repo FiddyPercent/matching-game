@@ -2,20 +2,19 @@ let picture = [];
 let previouslySelectedCard = false;
 let moveCount = 0;
 let score = 900;
-let start = 0;
+let startingTime = 0;
 
 $( document ).ready(function() {
    let scoreDiv = $("#score");
    let gameBoard = $('.gameboard');
    let card = $(".card");
-   let num = 0;
-   let gameStart = false;
+   let gamestartingTime = false;
    let timer = $("#timer");
    let time = 0;
-   let winScreen = $(".modal");
+   let winScreen = $(".win-Screen");
    let cards = [];
    let loadPage = $("#play-again");
-   let restart = $("#restart");
+   let restartingTime = $("#restartingTime");
 
 
     function loadCards() {
@@ -27,7 +26,7 @@ $( document ).ready(function() {
 		   currentCard = new Card(photo, id);
 		   cards.push(currentCard);
 		   picture.splice(i, 1);
-		   num++;
+		   
 	   });
    }
    
@@ -61,7 +60,7 @@ $( document ).ready(function() {
 	}	
    
    
-    function startGame() {
+    function startingTimeGame() {
 	  card.each(function (index) {
 		  $(this).css("background-image" , "url(images/mono-hide.jpg)");
 	  });
@@ -88,16 +87,16 @@ $( document ).ready(function() {
 		$("#move-counter").text(`Moves: ${moveCount}`);
 	}
    
-    function startTime(){
-	   if (!start){
-			start = Date.now();
+    function startingTimeTime(){
+	   if (!startingTime){
+			startingTime = Date.now();
 		}
-	   timer.text("Time: " +Math.floor((Date.now() - start)/ 1000));
+	   timer.text("Time: " +Math.floor((Date.now() - startingTime)/ 1000));
 	   score <= 0 ? setScore(0) : setScore(-1);
 		if(!isGameFinished()){
-		   setTimeout(startTime, 1000);
+		   setTimeout(startingTimeTime, 1000);
 	   }else{
-		   start = 0;
+		   startingTime = 0;
 	   }
     }
    
@@ -106,7 +105,7 @@ $( document ).ready(function() {
 		location.reload();
 	});
 
-	restart.click(function (){
+	restartingTime.click(function (){
 		location.reload();
 	});
 
@@ -118,10 +117,10 @@ $( document ).ready(function() {
 		++moveCount;
 		updateMovesCounter();
 		
-		//checks if game has already started
-		if(!gameStart){
-			startTime();
-			gameStart = true;
+		//checks if game has already startingTimeed
+		if(!gamestartingTime){
+			startingTimeTime();
+			gamestartingTime = true;
 		}
 		 //Finds the matching class for the selected div
 			 jQuery.each(cards, function (index) {
@@ -143,7 +142,7 @@ $( document ).ready(function() {
 						 if(isGameFinished() == true){			
 								updateScoreIcon();
 								winScreen.css("display", "block");
-								gameStart = false;
+								gamestartingTime = false;
 							}
 						}, 1000);
 					return false;
@@ -161,8 +160,8 @@ $( document ).ready(function() {
 		}
 	});
 	
-	//Starts The Setup for the Game On Load Complete
-	startGame();
+	//startingTimes The Setup for the Game On Load Complete
+	startingTimeGame();
     loadCards();
 	
    });
