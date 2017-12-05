@@ -21,7 +21,12 @@ body, html {
 	background-color: black;
 }
 
+.card:hover {
+	   box-shadow: inset 0 0 0 2px #9d2c27;
+}
+
 .gameboard {
+	position: relative;
 	max-width: 700px;
 	max-height: 700px;
 	margin: 0 auto;
@@ -45,8 +50,6 @@ body, html {
 .header {
 	margin: 15px;
 }
-
-
 
 .game-details {
 	max-width: 700px;
@@ -107,23 +110,24 @@ body, html {
 
 .win-Screen {
 	display: block;
-	position: absolute;
-	min-width: 30%;
-	min-height: 15%;
+	position: fixed;
 	top: 50%;
 	left: 50%;
 	justify-content: center;
 	background-color: white;
 	box-shadow: 5px 5px 5px black;
-	margin: -35% 0 0 -15%;
+	margin: -20% 0 0 -15%;
 	text-align: center;
+	font-weight: 900;
+	text-transform: uppercase;
 	border: 10px solid #1a1a1a;
 	border-radius: 25px;
+	z-index: 10;
 }
 
 .win-Screen-content {
 	max-width: 100%;
-	max-height:25%;
+	max-height: 25%;
 	display: flex;
 	flex-wrap: wrap;
 	padding: 10px;
@@ -173,7 +177,27 @@ body, html {
 	background: white;
 }
 
-@media screen and (max-width: 800px) and (min-width: 501px){
+@media screen and (min-width: 1900px){
+	.win-Screen {
+		width: 500px;
+		height: 300px;
+		position: fixed;
+		top: 25%;
+		margin: -150px 0 0 -250px;
+		}
+	}
+
+@media screen and (min-width: 901px) and (max-width: 1899px){
+	.win-Screen {
+		width: 300px;
+		height: 300px;
+		position: fixed;
+		top: 25%;
+		margin: -150px 0 0 -150px;
+		}
+	}
+
+@media screen and (max-width: 900px) and (min-width: 566px){
 	.card {
 		min-width: 100px;
 		min-height: 100px;
@@ -193,9 +217,17 @@ body, html {
 		min-width: 40px;
 		min-height: 40px;
 	}
-}
 
-@media screen and (max-width: 500px) {
+	.win-Screen {
+		width: 250px;
+		height: 250px;
+		position: fixed;
+		top: 25%;
+		margin: -125px 0 0 -125px;
+		}
+	}
+
+@media screen and (max-width: 566px) {
 	.card {
 		min-width: 64px;
 		min-height: 64px;
@@ -213,12 +245,28 @@ body, html {
 
 	.ranking {
 		margin: 0 auto;
-		min-width: 25px;
-		min-height: 25px;
+		min-width: 40px;
+		min-height: 40px;
 	}
 
-	.win-Screen {
-		margin: -55% 0 0 -25%;
-		padding: 20px;
+	.win-Screen-content div {
+		min-width: 40px;
+		min-height: 40px;
+		margin: 5px;
 	}
+	
+	.score div {
+		min-width: 30px;
+		min-height: 30px;
+		margin: 5px;
+	}
+	
+	.win-Screen {
+		width: 250px;
+		height: 250px;
+		position: fixed;
+		top: 20%;
+		margin: -125px 0 0 -125px;
+	}
+	
 }

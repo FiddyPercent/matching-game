@@ -54,7 +54,6 @@ $( document ).ready(function() {
 					$(".r3").css("background-image" , "url(images/mono-coinless.png)");
 					break;
 				default:
-					
 					$(".r2").css("background-image" , "url(images/mono-coinless.png)");			
 					$(".r3").css("background-image" , "url(images/mono-coinless.png)");
 			}
