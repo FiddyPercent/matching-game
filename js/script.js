@@ -51,18 +51,18 @@ $( document ).ready(function() {
 				case 2:
 					$(".r2").css("visibility", "visible");
 					$(".r1").css("visibility", "visible");		
-					$(".r3").css("visibility", "hidden");
+					$(".r3").css("background-image" , "url(images/mono-coinless.png)");
 					break;
 				default:
 					$(".r1").css("visibility", "visible");
-					$(".r2").css("visibility", "hidden");			
-					$(".r3").css("visibility", "hidden");
+					$(".r2").css("background-image" , "url(images/mono-coinless.png)");			
+					$(".r3").css("background-image" , "url(images/mono-coinless.png)");
 			}
 	}	
    
     function setBackCardImage() {
 	  card.each(function (index) {
-		  $(this).css("background-image" , "url(images/mono-hide.jpg)");
+		  $(this).css("background-image" , "url(images/mono-hide.png)");
 	  });
     }
   
@@ -173,8 +173,8 @@ $( document ).ready(function() {
 					 setScore(-25);
 						console.log("fail 25")
 					 setTimeout(function() {
-						 $(`#${cardId}`).css("background-image" , "url(images/mono-hide.jpg)");
-						 $("#" + previouslySelectedCard).css("background-image" , "url(images/mono-hide.jpg)");
+						 $(`#${cardId}`).css("background-image" , "url(images/mono-hide.png)");
+						 $("#" + previouslySelectedCard).css("background-image" , "url(images/mono-hide.png)");
 						 previouslySelectedCard = false;
 						}, 1000);
 				}
