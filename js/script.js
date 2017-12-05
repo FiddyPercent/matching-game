@@ -44,17 +44,17 @@ $( document ).ready(function() {
 
 			switch(finalScore){
 				case 3:
-					$(".r3").css("visibility", "visible");
-					$(".r2").css("visibility", "visible");
-					$(".r1").css("visibility", "visible");
+					$(".r1").css("background-image" , "url(images/mono-coin.png)");
+					$(".r2").css("background-image" , "url(images/mono-coin.png)");
+					$(".r3").css("background-image" , "url(images/mono-coin.png)");
 					break;
 				case 2:
-					$(".r2").css("visibility", "visible");
-					$(".r1").css("visibility", "visible");		
+					$(".r1").css("background-image" , "url(images/mono-coin.png)");
+					$(".r2").css("background-image" , "url(images/mono-coin.png)");
 					$(".r3").css("background-image" , "url(images/mono-coinless.png)");
 					break;
 				default:
-					$(".r1").css("visibility", "visible");
+					
 					$(".r2").css("background-image" , "url(images/mono-coinless.png)");			
 					$(".r3").css("background-image" , "url(images/mono-coinless.png)");
 			}
@@ -163,7 +163,7 @@ $( document ).ready(function() {
 						 if(isGameFinished() == true){			
 								updateScoreIcon();
 								winScreen.css("display", "block");
-								$("#final-moves").text(`Total Moves: ${moveCount}`)
+								$("#final-moves").text(`Total Moves:  ${moveCount}`)
 								hasGameStarted = false;
 							}
 						}, 1000);
