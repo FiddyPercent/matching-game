@@ -37,7 +37,7 @@ $( document ).ready(function() {
    
     function updateScoreIcon() {
 		 var finalScore = Math.round( Math.floor((score / 3 )) / 100);				
-			console.log(`finalScore = ${finalScore}`);
+			
 			if(finalScore > 3){ finalScore = 3} 
 			
 			$("#final-time").text(`Final Time: ${timer.text().replace("Time: ", "")}`);
@@ -130,6 +130,9 @@ $( document ).ready(function() {
 	});
 
 
+	
+
+
     card.click(function() {
 		let selectedCard = $(this);
 		let cardId = selectedCard.attr('id');
@@ -170,16 +173,24 @@ $( document ).ready(function() {
 				}else{
 					 //Failed Match Ends in a point Pentalty and Re-hides card
 					 setScore(-25);
-						console.log("fail 25")
+					$(`#${cardId}`).addClass("shake");
+					$("#" + previouslySelectedCard).addClass("shake");
 					 setTimeout(function() {
 						 $(`#${cardId}`).css("background-image" , "url(images/mono-hide.png)");
+						
 						 $("#" + previouslySelectedCard).css("background-image" , "url(images/mono-hide.png)");
+						$(`#${cardId}`).removeClass("shake");
+						$("#" + previouslySelectedCard).removeClass("shake");
+					
 						 previouslySelectedCard = false;
+						
 						}, 1000);
 				}
 		}else {
 				previouslySelectedCard = cardId;
 		}
+
+		
 	});
 	
 	//startingTimes The Setup for the Game On Load Complete
