@@ -186,7 +186,7 @@ $( document ).ready(function() {
 							
 						setTimeout(function () {
 							selectedCard.removeClass("flip-back");
-							selectedCard.addClass("match");
+							
 						}, 200);
 
 
