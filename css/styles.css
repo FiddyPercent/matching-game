@@ -19,13 +19,34 @@ body, html {
     background-size: contain, cover;
 	background-position: center center;
 	background-color: black;
+	
 }
 
 .card:hover {
-	/* animation: shake 1s;
-	transform: translate3d(0, 0, 0);
-	box-shadow: 0px 0px 5px 5px red; */
+   
+
+
 }
+
+
+.flip {
+	transition: 0.2s;
+	transform: rotateY(360deg);
+	transform-style: preserve-3d;
+	position: relative;
+	backface-visibility: hidden;
+
+}
+
+.flip-back {
+	transition: 0.2s;
+	transform: rotateY(-360deg);
+	transform-style: preserve-3d;
+	position: relative;
+	backface-visibility: hidden;
+
+}
+
 
 @keyframes shake {
   10%, 90% {
@@ -46,12 +67,26 @@ body, html {
 
 }	
 
+
+@keyframes match {
+
+0% { box-shadow: 0px 0px 5px 5px green };
+30% { box-shadow: 0px 0px 0px 0px black };
+60% { box-shadow: 0px 0px 5px 5px green };
+90% { box-shadow: 0px 0px 0px 0px black };
+100% { box-shadow: 0px 0px 5px 5px green };
+
+}
+
+
 .shake {
 	animation: shake 1s;
 	transform: translate3d(0, 0, 0);
-
-
 }
+
+.no-shake {
+}
+
 
 
 .gameboard {

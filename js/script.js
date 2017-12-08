@@ -4,7 +4,6 @@ let moveCount = 0;
 let score = 900;
 let startingTime = 0;
 let timeStop = false;
-
 $( document ).ready(function() {
    let scoreDiv = $("#score");
    let gameBoard = $('.gameboard');
@@ -130,14 +129,18 @@ $( document ).ready(function() {
 	});
 
 
-	
-
-
     card.click(function() {
 		let selectedCard = $(this);
 		let cardId = selectedCard.attr('id');
 		let divCardClass = false;
 		++moveCount;
+
+
+		selectedCard.addClass("flip");
+		setTimeout(function () {
+			selectedCard.removeClass("flip");
+		}, 200);
+
 		updateMovesCounter();
 		//checks if game has already starting
 		if(!hasGameStarted){
@@ -173,23 +176,32 @@ $( document ).ready(function() {
 				}else{
 					 //Failed Match Ends in a point Pentalty and Re-hides card
 					 setScore(-25);
-					$(`#${cardId}`).addClass("shake");
-					$("#" + previouslySelectedCard).addClass("shake");
+				
 					 setTimeout(function() {
 						 $(`#${cardId}`).css("background-image" , "url(images/mono-hide.png)");
 						
 						 $("#" + previouslySelectedCard).css("background-image" , "url(images/mono-hide.png)");
-						$(`#${cardId}`).removeClass("shake");
-						$("#" + previouslySelectedCard).removeClass("shake");
-					
+						
+							selectedCard.addClass("flip-back");
+							
+						setTimeout(function () {
+							selectedCard.removeClass("flip-back");
+							selectedCard.addClass("match");
+						}, 200);
+
+
 						 previouslySelectedCard = false;
+
+					
 						
 						}, 1000);
+
+						
 				}
 		}else {
 				previouslySelectedCard = cardId;
+	
 		}
-
 		
 	});
 	
